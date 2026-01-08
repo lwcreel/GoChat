@@ -1,8 +1,8 @@
 package client
 
 import (
-	//"bufio"
-	//"fmt"
+	"bufio"
+	"fmt"
 	"net"
 )
 
@@ -11,8 +11,8 @@ func Client() {
 	if err != nil {
 		println("Error")
 	}
-	//fmt.Fprintf(conn, "GET / HTTP/1.0\r\n\r\n")
-	//status, err := bufio.NewReader(conn).ReadString('\n')
-	conn.Write([]byte("Test Message"))
-	//println(status)
+	fmt.Fprintf(conn, "GET / HTTP/1.0\r\n\r\n")
+	status, err := bufio.NewReader(conn).ReadString('\n')
+	println(status)
+
 }
