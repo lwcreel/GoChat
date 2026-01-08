@@ -1,25 +1,22 @@
 package server
 
-import "net"
+import (
+	"fmt"
+	"net/http"
+	"strings"
+)
 
-func Server() {
-	ln, err := net.Listen("tcp", ":8080")
-	if err != nil {
-		println("Error")
+func Server(w http.ResponseWriter, r *http.Request) {
+	r.ParseForm()
+	fmt.Println(r.Form)
+	fmt.Println("path", r.URL.Path)
+	fmt.Println("scheme", r.URL.Scheme)
+	fmt.Println(r.Form["url_long"])
+
+	for k, v := range r.Form {
+		fmt.Println("key:", k)
+		fmt.Println("val:", strings.Join(v, ""))
 	}
 
-	for {
-		conn, err := ln.Accept()
-		if err != nil {
-			println("Error")
-		}
-		go handleConnection(conn)
-	}
-}
-
-func handleConnection(connection net.Conn) {
-
-	println("Connected To: ")
-	println(connection.LocalAddr().String())
-
+	fmt.Fprintf(w, "Hello, Landon")
 }
